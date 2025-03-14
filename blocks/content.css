@@ -6,3 +6,9 @@
   justify-content: center;
   max-width: 1440px;
 }
+
+@media (min-width: 288px) and (max-width: 413px) {
+  .content {
+padding: 0 16px;
+  }
+}

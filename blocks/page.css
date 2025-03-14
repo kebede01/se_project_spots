@@ -5,23 +5,9 @@
   background-color: #fcf5e5;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
-/* for mobile apps */
-@media (min-width: 288px) and (max-width: 786px) {
-  .page {
-    max-width: 785px;
-  }
-}
 
-/* for tablets */
-@media (min-width: 786px) and (max-width: 1037px) {
+@media (min-width: 786px) {
   .page {
-    max-width: 1036px;
-  }
-}
-
-/* for desktops */
-@media (min-width: 1037px) {
-  .page {
-    max-width: 1440px;
+    max-width: calc(100% - 160px);
   }
 }
