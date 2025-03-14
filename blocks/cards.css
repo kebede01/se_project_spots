@@ -1,0 +1,69 @@
+.cards__list {
+display: grid;
+grid-template-columns: repeat(auto-fit, 413px);
+/* grid-template-columns: repeat(3, minmax(min-content, max-content)); */
+grid-template-rows: auto;
+gap: 10px;
+padding: 0 0 24px;
+justify-content: center;
+align-items: center;
+border-bottom: 1px solid black;
+
+}
+
+.card {
+width: 100%;
+
+object-fit: cover;
+list-style-type: none;
+
+}
+
+.card__image {
+width: 413px;
+
+height: 413px;
+box-sizing: border-box;
+}
+
+.card__caption {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+margin-top: 12px;
+font-family: "Poppins", Arial, Helvetica, sans-serif;
+font-weight: 500;
+font-size: 20px;
+line-height: 1.2;
+}
+.card__caption-span {
+  width: 300px;
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Ensures the overflowing text is hidden */
+  text-overflow: ellipsis; /* Adds the ellipsis to indicate overflow */
+}
+
+
+@media (min-width: 288px) and (max-width: 413px) {
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 288px)
+  }
+
+.card__image {
+    width: 100%;
+  }
+}
+
+@media (min-width:786px) {
+
+   .cards__list{
+    margin: 20px 0 60px;
+    gap: 40px 20px;
+    border-bottom: 1px solid #21212166;
+}
+
+.cards {
+  width: 100%;
+}
+}

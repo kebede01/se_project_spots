@@ -1,0 +1,128 @@
+.profile {
+  padding: 34px 0 20px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+}
+.profile__avatar {
+  width: 150px;
+  height: 150px;
+  border: 5%;
+}
+
+.profile__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 420px;
+  max-height: 190px;
+  margin: 0;
+}
+.profile__title {
+  text-align: center;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0%;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.profile__description {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.profile__button-edit {
+  display: flex;
+  gap: 8px;
+  border: none;
+  margin-top: 20px;
+  background-color: #fcf5e5;
+  width: 107px;
+  height: 16px;
+  opacity: 0.7;
+  white-space: nowrap;
+  margin-top: 0 auto;
+}
+.profile__button-svg {
+  width: 100%;
+  height: 100%;
+}
+.profile__button-edit .profile__button-span {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+
+}
+
+.profile__button-post .profile__button-span {
+  /* font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0%; */
+}
+.profile__button-post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  width: 100%;
+
+  padding: 25px 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0%;
+}
+
+@media (min-width: 786px) {
+  .profile {
+    width: 100%;
+    flex-direction: row;
+    gap: 10px;
+    box-sizing: border-box;
+    object-fit: cover;
+  }
+
+  .profile__description {
+    max-width: 300px;
+    text-align: start;
+  }
+  .profile__title {
+    text-align: start;
+  }
+  .profile__button-edit {
+    padding: 0;
+    margin-right: auto;
+  }
+  .profile__button-post {
+    width: 180px;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+}

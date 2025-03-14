@@ -1,0 +1,23 @@
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  min-width: 320px;
+}
+
+.header__logo {
+  margin: 10px 0 ;
+  width: 94px;
+  height: 26px;
+}
+
+
+
+
+
+
+
+
+
