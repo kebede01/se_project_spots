@@ -1,22 +1,32 @@
-# Project 3: Spots
+# project 3: Spots
 
-### Overview
+This is my first project using READ.ME and based on my tutors feedback, I will update my codes in the next post.
 
-- Intro
-- Figma
-- Images
+## Project Description
 
-**Intro**
+This project is aimed at achieving responsive webpage with a design in _FIGMA_. Flexbox, grid and media query were remarkable in making the webpage responsive.
 
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.
+- Phones
+  [(./images/demo/mobile-view.png)]
+- Tablets [(./images/demo/tablet-view.png)]
+- Desktops [(./images/demo/desktop-view.png)]
 
-**Figma**
+### Techniques used in the project
 
-- [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
+- I used **BEM** file structure and **BEM consistent** class names
+- I took all my videos from _Figma_ Spots.
+- I used the `<ul>` semantic instead of `<figure>` in the HTML for cards section.
 
-**Images**
+- I rewrote imported file names to avoid spacing and capital letters, here is one example [(./images/rectangle_2.svg)]
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster.
+- The following CSS selector helped me a lot from writng lines of codes to achieve the same result.
 
-Good luck and have fun!
+```
+.selector {
+ width: calc(100% - 160px);
+}
+```
 
+#### Here is the link to my deployed project:
+
+[(https://kebede01.github.io/se_project_spots/)]
