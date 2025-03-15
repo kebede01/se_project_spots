@@ -27,6 +27,6 @@ This project is aimed at achieving responsive webpage with a design in _FIGMA_. 
 }
 ```
 
-#### Here is the link to my deployed project:
+#### Here is the link to my deployed project on Github:
 
 [(https://kebede01.github.io/se_project_spots/)]
