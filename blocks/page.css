@@ -8,21 +8,15 @@
 
 @media (min-width: 786px) {
   .page {
-    max-width: calc(100% - 160px);
+
+    max-width: 1440px;
   }
 }
 /* To change  background color mode */
-/* @media (prefers-color-scheme: dark) {
+ @media (prefers-color-scheme: dark) {
   .page{
     background-color: #121212;
     color: #ffffff;
   }
-} */
-
-/* To disable any animations or transitions */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none;
-    transition: none;
-  }
 }
+

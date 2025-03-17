@@ -3,7 +3,8 @@
   grid-template-columns: repeat(auto-fit, 413px);
   grid-template-rows: auto;
   gap: 20px;
-  padding-bottom: 20px;
+
+  padding: 0 0 20px;
   font-size: 16px;
   justify-content: center;
   align-items: center;
@@ -14,6 +15,7 @@
 
 .cards {
   width: 100%;
+
 }
 
 .card__image {
@@ -28,6 +30,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 12px;
+
 }
 
 .card__caption-content {
@@ -60,20 +63,22 @@
 
 @media (min-width: 288px) and (max-width: 413px) {
   .cards__list {
+
     grid-template-columns: repeat(auto-fit, 288px);
     grid-template-rows: 346px;
     gap: 32px;
     padding-bottom: 20px;
+    box-sizing: border-box;
   }
 
   .card__image {
     width: 288px;
     height: 288px;
   }
+
 }
 @media (min-width: 786px) {
   .cards__list {
-    gap: 20px 40px;
     padding-bottom: 40px;
     margin: 20px 0;
     font-size: 20px;

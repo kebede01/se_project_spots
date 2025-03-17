@@ -19,13 +19,9 @@ This project is aimed at achieving responsive webpage with a design in _FIGMA_. 
 
 - I rewrote imported file names to avoid spacing and capital letters, here is one example [(./images/rectangle_2.svg)]
 
-- The following CSS selector helped me a lot from writng lines of codes to achieve the same result.
 
-```
-.selector {
- width: calc(100% - 160px);
-}
-```
+
+
 
 #### Here is the link to my deployed project on Github:
 
