@@ -1,12 +1,14 @@
+.footer {
+  padding: 0 20px;
+}
 .footer__copyright {
   margin: 0;
-  padding: 60px;
+  padding:60px;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1;
-  color: #212121b2;
-  opacity: 0.4;
+  color: #212121;
+  opacity: 0.7;
   text-align: center;
-  border-color: #212121;
 }

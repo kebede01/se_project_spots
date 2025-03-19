@@ -2,95 +2,27 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 413px);
   grid-template-rows: auto;
-  gap: 20px;
-
-  padding: 0 0 20px;
+  gap: 40px 20px;
+  padding: 0 0 40px;
   font-size: 16px;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgb(33, 33, 33, 0.4);
+  border-bottom: 1px solid rgba(33, 33, 33, 0.4);
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
+ margin: 0;
 }
 
 .cards {
   width: 100%;
-
-}
-
-.card__image {
-  width: 413px;
-  height: 413px;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-
-.card__caption {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-
-}
-
-.card__caption-content {
-  font-size: 16px;
-  line-height: 1;
-  color: #212121;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  max-width: 100%;
-  white-space: nowrap; /* Prevents the text from wrapping */
-  overflow: hidden; /* Ensures the overflowing text is hidden */
-  text-overflow: ellipsis; /* Adds the ellipsis to indicate overflow */
-}
-
-.card__caption-button {
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  width: 20px;
-  height: 18px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: 1.3s;
-}
-
-.card__caption-button:hover {
-  opacity: 0.4;
 }
 
 @media (min-width: 288px) and (max-width: 413px) {
   .cards__list {
-
     grid-template-columns: repeat(auto-fit, 288px);
     grid-template-rows: 346px;
-    gap: 32px;
+    gap: 20px;
     padding-bottom: 20px;
     box-sizing: border-box;
-  }
-
-  .card__image {
-    width: 288px;
-    height: 288px;
-  }
-
-}
-@media (min-width: 786px) {
-  .cards__list {
-    padding-bottom: 40px;
-    margin: 20px 0;
-    font-size: 20px;
-    line-height: 1.2;
-  }
-
-  .card__caption-content {
-    font-size: 20px;
-  }
-
-  .card__caption-button {
-    width: 23px;
-    height: 20px;
   }
 }

@@ -1,22 +1,9 @@
-.page {
-  max-width: 786px;
-  min-width: 320px;
+
+.page__profile {
+  max-width: 1440px;
   margin: 0 auto;
   background-color: #fcf5e5;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
-@media (min-width: 786px) {
-  .page {
-
-    max-width: 1440px;
-  }
-}
-/* To change  background color mode */
- @media (prefers-color-scheme: dark) {
-  .page{
-    background-color: #121212;
-    color: #ffffff;
-  }
-}
 
