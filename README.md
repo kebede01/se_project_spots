@@ -19,10 +19,10 @@ This project is aimed at achieving responsive webpage with a design in _FIGMA_. 
 
 - I rewrote imported file names to avoid spacing and capital letters, here is one example [(./images/rectangle_2.svg)]
 
-
-
-
-
 #### Here is the link to my deployed project on Github:
 
 [(https://kebede01.github.io/se_project_spots/)]
+
+
+#### Here is the link to my project discourse video:
+[(https://drive.google.com/file/d/1og-sOvslkIPKyemjUTc29X4bBqjiXlF_/view?usp=drive_link)]
