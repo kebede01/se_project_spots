@@ -34,7 +34,6 @@
   color: #212121;
   line-height: 1;
   letter-spacing: 0%;
-
   margin-top: 12px;
   margin-bottom: 6px;
   padding: 0;
@@ -72,7 +71,6 @@
   height: 16px;
   font-size: 16px;
   white-space: nowrap;
-  /* margin-top: auto; */
   opacity: 0.7;
   cursor: pointer;
   transition: 1.3s;
@@ -136,7 +134,7 @@
 @media (min-width: 786px) {
   .profile {
     flex-direction: row;
-    gap: 10px;
+    gap: 20px;
     box-sizing: border-box;
     object-fit: cover;
   }
@@ -158,13 +156,16 @@
   .profile__title {
     text-align: start;
     font-size: 32px;
+    margin-top: 0;
   }
 
   .profile__button-edit {
     padding: 0;
     margin-top: auto;
     margin-right: auto;
+    margin-bottom: 0;
   }
+
   .profile__button-post {
     padding: 18px 32px;
     height: 52px;
