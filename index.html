@@ -140,7 +140,37 @@
       <footer class="footer page__profile">
         <p class="footer__copyright">2023 &copy; Spots</p>
       </footer>
+      <section class="modal-section modal modal_opened">
+        <!-- I added the class 'modal-section' to make it a portable block. B/c it has no positioning or margin -->
+        <div class="modal__container">
+          <button type="submit" class="modal__close-btn">
+            <img class="modal__close-img" src="./images/close-img.svg" />
+          </button>
+          <h2 class="modal__title">Edit profile</h2>
+          <form name="edit__profile" class="modal__form">
+            <label for="name" class="modal__label">
+              Name
+              <input
+                id="name"
+                type="text"
+                class="modal__input"
+                placeholder="Type your description"
+              />
+            </label>
+            <label for="description" class="modal__label">
+              Description
+              <input
+                id="description"
+                type="text"
+                class="modal__input"
+                placeholder=" Describe yourself"
+              />
+            </label>
+            <button type="submit" class="modal__submit-btn">Save</button>
+          </form>
+        </div>
+      </section>
     </div>
-    <script defer src="./scripts/index.js"> </script>
+    <script defer src="./scripts/index.js"></script>
   </body>
 </html>
