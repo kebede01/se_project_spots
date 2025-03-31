@@ -25,12 +25,63 @@ const initialCards = [
   },
 ];
 
-const editButton = document.querySelector(".profile__button-edit");
-const closeModal = document.querySelector(".modal__close-btn");
-const editModal = document.querySelector("#modal-edit");
-editButton.addEventListener("click", function () {
-  editModal.classList.add("modal_opened");
+// selecting required elements from profile section.
+const profileSection = document.querySelector(".profile");
+
+const profileEditButton = profileSection.querySelector(".profile__button-edit");
+
+const profileTitle = profileSection.querySelector(".profile__title");
+
+const profileDescription = profileSection.querySelector(
+  ".profile__description"
+);
+// selecting required elements from modal section.
+const modalSection = document.querySelector("#modal-edit");
+
+const modalCloseButton = modalSection.querySelector(".modal__close-btn");
+
+const modalNameInput = modalSection.querySelector("#name");
+
+const modalDescriptionInput = modalSection.querySelector("#description");
+
+const modalSaveButton = modalSection.querySelector(".modal__submit-btn");
+
+// Adding event listener to the button selected elements.
+profileEditButton.addEventListener("click", function () {
+  modalSection.classList.add("modal_opened");
+  modalNameInput.value = profileTitle.textContent;
+  modalDescriptionInput.value = profileDescription.textContent;
 });
-closeModal.addEventListener("click", function () {
-  editModal.classList.remove("modal_opened");
+
+modalCloseButton.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  modalSection.classList.remove("modal_opened");
 });
+
+modalSaveButton.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  profileTitle.textContent = modalNameInput.value;
+  profileDescription.textContent = modalDescriptionInput.value;
+  modalNameInput.value = "";
+  modalDescriptionInput.value = "";
+  modalSection.classList.remove("modal_opened");
+});
+// cloning template content & selecting the <ul> element("".cards__list").
+const template = document.querySelector(".template").content;
+const cardsContainer = document.querySelector(".cards__list");
+
+function getCardElement(data) {
+  const card = template.querySelector(".card").cloneNode(true);
+  const cardImage = card.querySelector(".card__image");
+  cardImage.setAttribute("src", `${data.link}`);
+  cardImage.setAttribute("alt", `${data.name}`);
+  card.querySelector(".card__caption-content").textContent = `${data.name}`;
+  return card;
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  const data = initialCards[i];
+
+  const cardElement = getCardElement(data);
+  cardsContainer.append(cardElement);
+}
