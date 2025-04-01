@@ -23,6 +23,8 @@ This is my first project using READ.ME and based on my tutors feedback, I will u
 
 - I used javascript to add event listeners that respond on clicking buttons and submitting forms.
 
+- Used template to clone the image cards. So images are added using javascript.
+
 #### Here is the link to my deployed project on Github:
 
 [(https://kebede01.github.io/se_project_spots/)]
