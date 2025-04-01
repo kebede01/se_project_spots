@@ -4,12 +4,14 @@ This is my first project using READ.ME and based on my tutors feedback, I will u
 
 ## Project Description
 
-This project is aimed at achieving responsive webpage with a design in _FIGMA_. Flexbox, grid and media query were remarkable in making the webpage responsive.
+1. This project is aimed at achieving responsive webpage with a design in _FIGMA_. Flexbox, grid and media query were remarkable in making the webpage responsive.
 
 - Phones
   [(./images/demo/mobile-view.png)]
 - Tablets [(./images/demo/tablet-view.png)]
 - Desktops [(./images/demo/desktop-view.png)]
+
+2. I added form section that pops up on clicking edit button.
 
 ### Techniques used in the project
 
@@ -18,6 +20,8 @@ This project is aimed at achieving responsive webpage with a design in _FIGMA_. 
 - I used the `<ul>` semantic instead of `<figure>` in the HTML for cards section.
 
 - I rewrote imported file names to avoid spacing and capital letters, here is one example [(./images/rectangle_2.svg)]
+
+- I used javascript to add event listeners that respond on clicking buttons and submitting forms.
 
 #### Here is the link to my deployed project on Github:
 
