@@ -25,7 +25,7 @@ const initialCards = [
   },
 ];
 
-// selecting required elements from profile section.
+// selecting required elements from profile section for edit button.
 const profileSection = document.querySelector(".profile");
 
 const profileEditButton = profileSection.querySelector(".profile__button-edit");
@@ -48,14 +48,14 @@ const modalSaveButton = modalSection.querySelector(".modal__submit-btn");
 
 // Adding event listener to the button selected elements.
 profileEditButton.addEventListener("click", function () {
-  modalSection.classList.add("modal_opened");
+  modalSection.classList.add("modal_is-opened");
   modalNameInput.value = profileTitle.textContent;
   modalDescriptionInput.value = profileDescription.textContent;
 });
 
 modalCloseButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalSection.classList.remove("modal_opened");
+  modalSection.classList.remove("modal_is-opened");
 });
 
 modalSaveButton.addEventListener("submit", function (evt) {
@@ -64,7 +64,7 @@ modalSaveButton.addEventListener("submit", function (evt) {
   profileDescription.textContent = modalDescriptionInput.value;
   modalNameInput.value = "";
   modalDescriptionInput.value = "";
-  modalSection.classList.remove("modal_opened");
+  modalSection.classList.remove("modal_is-opened");
 });
 // cloning template content & selecting the <ul> element("".cards__list").
 const template = document.querySelector(".template").content;
