@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
   padding: 0 10px;
   object-fit: cover;
   box-sizing: border-box;
@@ -83,10 +84,10 @@
   border: 1px solid rgba(33%, 33%, 33%, 0.4);
   padding: 16px 12px;
   cursor: pointer;
-  transition: 1s;
 }
 
 .modal__input:hover {
+  transition: 1s;
   border: 1px solid rgb(33%, 33%, 33%);
 }
 .modal__input::placeholder,
