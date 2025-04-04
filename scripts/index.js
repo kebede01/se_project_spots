@@ -56,7 +56,7 @@ const modalPostCardCaption = modalPost.querySelector("#card-img-caption");
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalEdit.classList.add("modal_is-opened");
+  modalEdit.classList.add("modal_opened");
   modalEditNameInput.value = profileTitle.textContent;
   modalEditDescriptionInput.value = profileDescription.textContent;
 });
@@ -64,13 +64,13 @@ profileEditButton.addEventListener("click", function (evt) {
 // Adding event listener to the profile post button .
 profilePostButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalPost.classList.add("modal_is-opened");
+  modalPost.classList.add("modal_opened");
 });
 
 // Adding event listener to the modal edit close button .
 modalEditCloseButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalEdit.classList.remove("modal_is-opened");
+  modalEdit.classList.remove("modal_opened");
 });
 
 // Adding event listener to the modal edit save button .
@@ -78,13 +78,13 @@ modalFormEdit.addEventListener("submit", function (evt) {
   evt.preventDefault();
   profileTitle.textContent = modalEditNameInput.value;
   profileDescription.textContent = modalEditDescriptionInput.value;
-  modalEdit.classList.remove("modal_is-opened");
+  modalEdit.classList.remove("modal_opened");
 });
 
 // Adding event listener to the modal-post close button .
 modalPostCloseButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalPost.classList.remove("modal_is-opened");
+  modalPost.classList.remove("modal_opened");
 });
 
 // Adding event listener to the modal-post save button .
@@ -100,7 +100,7 @@ modalFormPost.addEventListener("submit", function (evt) {
   const cardElement = getCardElement(cardItem);
   cardsContainer.append(cardElement);
 
-  modalPost.classList.remove("modal_is-opened");
+  modalPost.classList.remove("modal_opened");
 });
 
 // function generating card from object literal "data" containing "name" and "link" key words.
