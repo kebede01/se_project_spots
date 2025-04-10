@@ -11,7 +11,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: url('../images/delete.svg') center no-repeat rgba(0,0,0,0.3);
+  background: url("../images/delete.svg") center no-repeat rgba(0, 0, 0, 0.3);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -50,7 +50,7 @@
 .card__like-button {
   padding: 0;
   border: none;
-  background: transparent ;
+  background: transparent;
   width: 20px;
   height: 18px;
   cursor: pointer;
@@ -58,14 +58,13 @@
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.4;
-
 }
 
 .card__delete-btn {
-width: 32px;
-height: 32px;
-border: none;
-background-color: transparent;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
 }
 
 .card__like-button:hover {
