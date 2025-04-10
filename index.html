@@ -54,12 +54,13 @@
         </section>
         <section class="cards">
           <ul class="cards__list">
-            <template class="template">
+            <template id="card-template">
               <li class="card">
+                <button class="card__delete-btn"></button>
                 <img class="card__image" src="" alt="" />
-                <div class="card__caption">
-                  <h2 class="card__caption-content"></h2>
-                  <button type="button" class="card__caption-button">
+                <div class="card__footer">
+                  <h2 class="card__title"></h2>
+                  <button type="button" class="card__like-button">
                     <img src="images/union.svg" alt="union icon" />
                   </button>
                 </div>
@@ -80,7 +81,7 @@
               alt="modal close image"
             />
           </button>
-          <h2 class="modal__title">Edit profile</h2>
+          <h3 class="modal__title">Edit profile</h3>
           <form name="edit__profile" class="modal__form">
             <label for="name" class="modal__label">
               Name
@@ -113,7 +114,7 @@
               alt="modal close image"
             />
           </button>
-          <h2 class="modal__title">New post</h2>
+          <h3 class="modal__title">New post</h3>
           <form name="post__profile" class="modal__form">
             <label for="card-img-input" class="modal__label">
               Image link
@@ -124,17 +125,34 @@
                 placeholder="Place a link to the picture"
               />
             </label>
-            <label for="card-img-caption" class="modal__label">
-              Caption
+            <label for="card-img-title" class="modal__label">
+              Title
               <input
-                id="card-img-caption"
+                id="card-img-title"
                 type="text"
                 class="modal__input"
-                placeholder="Write the caption here"
+                placeholder="Write the title here"
               />
             </label>
             <button type="submit" class="modal__submit-btn">Save</button>
           </form>
+        </div>
+      </div>
+
+      <div class="modal modal_type-preview" id="preview-modal">
+        <div class="modal__image-container">
+          <button
+            type="button"
+            class="modal__close-btn modal__close-btn_type-preview"
+          >
+            <img
+              class="modal__close-img"
+              src="../images/close-icon.svg"
+              alt="modal close image"
+            />
+          </button>
+          <img src="" alt="" class="modal__image" />
+          <p class="modal__caption"></p>
         </div>
       </div>
     </div>

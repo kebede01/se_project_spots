@@ -18,6 +18,7 @@
   width: 100%;
 }
 
+
 @media (min-width: 288px) and (max-width: 413px) {
   .cards__list {
     grid-template-columns: repeat(auto-fit, 288px);

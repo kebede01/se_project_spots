@@ -116,17 +116,62 @@
   cursor: pointer;
 }
 
+.modal__image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__close-btn_type-preview {
+  background: none;
+  top: -48px;
+  right: 0;
+  opacity: 1;
+}
+
+.modal__close-btn_type-preview:hover {
+  opacity: 0.4;
+}
+
+.modal__image {
+  max-height: 80vh;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal__caption {
+  padding: 0;
+  color: white;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
 @media (min-width: 786px) {
+  .modal_type-preview {
+    padding: 0 16px;
+  }
+
   .modal__container {
     gap: 32px;
     padding: 32px 50px;
   }
+
   .modal__close-btn {
     position: absolute;
     top: 32px;
     right: 50px;
   }
 
+  .modal__close-btn_type-preview {
+    top: 0;
+    right: -52.5px;
+  }
+
+ 
   .modal__title {
     font-size: 32px;
     margin: 4px 0;
