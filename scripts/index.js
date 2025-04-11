@@ -45,6 +45,7 @@ const cardsContainer = document.querySelector(".cards__list");
 // selecting required elements from the two popping up modal sections.
 // 1. modal Edit elements
 const modalEdit = document.querySelector("#edit-profile-modal");
+// const modalEdit = document.forms["#edit-profile-modal"];
 const modalEditCloseButton = modalEdit.querySelector(".modal__close-btn");
 const modalFormEdit = modalEdit.querySelector(".modal__form");
 const modalEditNameInput = modalEdit.querySelector("#name");
@@ -63,11 +64,6 @@ const modalPreviewCloseButton = modalPreview.querySelector(".modal__close-btn");
 const modalPreviewCardImage = modalPreview.querySelector(".modal__image");
 const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
 
-// Add event listener to the modal preview close button
-modalPreviewCloseButton.addEventListener("click", () => {
-  closeModal(modalPreview);
-});
-
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -82,24 +78,12 @@ profilePostButton.addEventListener("click", (evt) => {
   openModal(modalPost);
 });
 
-// Adding event listener to the modal edit close button .
-modalEditCloseButton.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  closeModal(modalEdit);
-});
-
 // Adding event listener to the modal edit save button .
 modalFormEdit.addEventListener("submit", (evt) => {
   evt.preventDefault();
   profileTitle.textContent = modalEditNameInput.value;
   profileDescription.textContent = modalEditDescriptionInput.value;
-  closeModal(modalEdit);
-});
-
-// Adding event listener to the modal-post close button .
-modalPostCloseButton.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  closeModal(modalPost);
+  // closeModal(modalEdit);
 });
 
 // Adding event listener to the modal-post save button .
@@ -113,7 +97,14 @@ modalFormPost.addEventListener("submit", (evt) => {
   };
   const cardElement = getCardElement(cardItem);
   cardsContainer.prepend(cardElement);
-  closeModal(modalPost);
+  evt.target.reset();
+});
+
+// Add event listener to all close buttons
+const closeButtons = document.querySelectorAll('.modal__close-btn');
+closeButtons.forEach((button) => {
+  const popup = button.closest('.modal');
+  button.addEventListener('click', () => closeModal(popup));
 });
 
 function closeModal(modal) {
@@ -122,6 +113,15 @@ function closeModal(modal) {
 function openModal(modal) {
   modal.classList.add("modal_opened");
 }
+
+// The function accepts a card object and a method of adding to the section
+// The method is initially `prepend`, but you can pass `append`
+function renderCard(data, method = "prepend") {
+   const cardElement = getCardElement(data);
+  // Add the card into the section using the method
+   cardsContainer[ method ](cardElement);
+}
+
 // function generating card from object literal "data" containing "name" and "link" key words.
 function getCardElement(data) {
   const card = cardTemplate.querySelector(".card").cloneNode(true);
@@ -152,6 +152,8 @@ function getCardElement(data) {
 
 // a function that loops an array of objects and appends cards to our HTML.
 initialCards.forEach((data) => {
-  const cardElement = getCardElement(data);
-  cardsContainer.append(cardElement);
+  // const cardElement = getCardElement(data);
+  // cardsContainer.append(cardElement);
+  renderCard(data, method = "append");
 });
+
