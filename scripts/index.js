@@ -83,7 +83,7 @@ modalFormEdit.addEventListener("submit", (evt) => {
   evt.preventDefault();
   profileTitle.textContent = modalEditNameInput.value;
   profileDescription.textContent = modalEditDescriptionInput.value;
-  // closeModal(modalEdit);
+  closeModal(modalEdit);
 });
 
 // Adding event listener to the modal-post save button .
@@ -95,16 +95,17 @@ modalFormPost.addEventListener("submit", (evt) => {
     name: cardTitle,
     link: cardImgUrl,
   };
-  const cardElement = getCardElement(cardItem);
-  cardsContainer.prepend(cardElement);
+
+  renderCard(cardItem, (method = "prepend"));
+  closeModal(modalPost);
   evt.target.reset();
 });
 
 // Add event listener to all close buttons
-const closeButtons = document.querySelectorAll('.modal__close-btn');
+const closeButtons = document.querySelectorAll(".modal__close-btn");
 closeButtons.forEach((button) => {
-  const popup = button.closest('.modal');
-  button.addEventListener('click', () => closeModal(popup));
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(popup));
 });
 
 function closeModal(modal) {
@@ -112,14 +113,6 @@ function closeModal(modal) {
 }
 function openModal(modal) {
   modal.classList.add("modal_opened");
-}
-
-// The function accepts a card object and a method of adding to the section
-// The method is initially `prepend`, but you can pass `append`
-function renderCard(data, method = "prepend") {
-   const cardElement = getCardElement(data);
-  // Add the card into the section using the method
-   cardsContainer[ method ](cardElement);
 }
 
 // function generating card from object literal "data" containing "name" and "link" key words.
@@ -150,10 +143,15 @@ function getCardElement(data) {
   return card;
 }
 
+// The function accepts a card object and a method of adding to the section
+// The method is initially `prepend`, but you can pass `append`
+function renderCard(data, method = "prepend") {
+  const cardElement = getCardElement(data);
+  // Add the card into the section using the method
+  cardsContainer[method](cardElement);
+}
+
 // a function that loops an array of objects and appends cards to our HTML.
 initialCards.forEach((data) => {
-  // const cardElement = getCardElement(data);
-  // cardsContainer.append(cardElement);
-  renderCard(data, method = "append");
+  renderCard(data, (method = "append"));
 });
-
