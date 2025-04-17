@@ -45,7 +45,6 @@ const cardsContainer = document.querySelector(".cards__list");
 // selecting required elements from the two popping up modal sections.
 // 1. modal Edit elements
 const modalEdit = document.querySelector("#edit-profile-modal");
-// const modalEdit = document.forms["#edit-profile-modal"];
 const modalEditCloseButton = modalEdit.querySelector(".modal__close-btn");
 const modalFormEdit = modalEdit.querySelector(".modal__form");
 const modalEditNameInput = modalEdit.querySelector("#name");
@@ -67,15 +66,19 @@ const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
-  modalEdit.classList.add("modal_opened");
+  openModal(modalEdit);
   modalEditNameInput.value = profileTitle.textContent;
   modalEditDescriptionInput.value = profileDescription.textContent;
+  // resetting the modal error message requires an array
+  resetValidation(modalEdit, [modalEditNameInput, modalEditDescriptionInput]);
 });
 
 // Adding event listener to the profile post button .
 profilePostButton.addEventListener("click", (evt) => {
   evt.preventDefault();
   openModal(modalPost);
+  // resetting the modal error message
+  resetValidation(modalPost, [modalPostCardImg, modalPostCardTitle]);
 });
 
 // Adding event listener to the modal edit save button .
@@ -84,6 +87,8 @@ modalFormEdit.addEventListener("submit", (evt) => {
   profileTitle.textContent = modalEditNameInput.value;
   profileDescription.textContent = modalEditDescriptionInput.value;
   closeModal(modalEdit);
+  const modalButtonEdit = modalEdit.querySelector(".modal__submit-btn");
+  disableButton(modalButtonEdit, settings);
 });
 
 // Adding event listener to the modal-post save button .
@@ -99,6 +104,8 @@ modalFormPost.addEventListener("submit", (evt) => {
   renderCard(cardItem, (method = "prepend"));
   closeModal(modalPost);
   evt.target.reset();
+  const modalButtonPost = modalPost.querySelector(".modal__submit-btn");
+  disableButton(modalButtonPost, settings);
 });
 
 // Add event listener to all close buttons
@@ -108,11 +115,24 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(popup));
 });
 
+// To close a pop up modal by pressing Escape key
+function closeModalByEsc(evt) {
+  if (evt.key === "Escape") {
+    //find the currenctly opened modal, and close that one
+    const currentlyOpenedModal = document.querySelector(".modal_opened");
+    closeModal(currentlyOpenedModal);
+  }
+}
+
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+
+  document.removeEventListener("keydown", closeModalByEsc);
 }
 function openModal(modal) {
   modal.classList.add("modal_opened");
+
+  document.addEventListener("keydown", closeModalByEsc);
 }
 
 // function generating card from object literal "data" containing "name" and "link" key words.
@@ -154,4 +174,15 @@ function renderCard(data, method = "prepend") {
 // a function that loops an array of objects and appends cards to our HTML.
 initialCards.forEach((data) => {
   renderCard(data, (method = "append"));
+});
+
+// To close a pop up modal by clicking outside the modal container
+const modalOverLays = document.querySelectorAll(".modal");
+modalOverLays.forEach((modalOverLay) => {
+  modalOverLay.addEventListener("click", (evt) => {
+    // if the element we clicked on is the overlay, then we close the modal
+    if (evt.target === modalOverLay) {
+      closeModal(modalOverLay);
+    }
+  });
 });
