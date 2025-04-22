@@ -49,6 +49,7 @@ const modalEditCloseButton = modalEdit.querySelector(".modal__close-btn");
 const modalFormEdit = modalEdit.querySelector(".modal__form");
 const modalEditNameInput = modalEdit.querySelector("#name");
 const modalEditDescriptionInput = modalEdit.querySelector("#description");
+const modalButtonEdit = modalEdit.querySelector(".modal__submit-btn");
 
 // 2. modal post elements
 const modalPost = document.querySelector("#new-post-modal");
@@ -56,7 +57,7 @@ const modalPostCloseButton = modalPost.querySelector(".modal__close-btn");
 const modalFormPost = modalPost.querySelector(".modal__form");
 const modalPostCardImg = modalPost.querySelector("#card-img-input");
 const modalPostCardTitle = modalPost.querySelector("#card-img-title");
-
+const modalButtonPost = modalPost.querySelector(".modal__submit-btn");
 // 3. modal preview elements that would be visible on image clicking (after adding event listener).
 const modalPreview = document.querySelector("#preview-modal");
 const modalPreviewCloseButton = modalPreview.querySelector(".modal__close-btn");
@@ -70,15 +71,18 @@ profileEditButton.addEventListener("click", (evt) => {
   modalEditNameInput.value = profileTitle.textContent;
   modalEditDescriptionInput.value = profileDescription.textContent;
   // resetting the modal error message requires an array
-  resetValidation(modalEdit, [modalEditNameInput, modalEditDescriptionInput]);
+  resetValidation(
+    modalFormEdit,
+    [modalEditNameInput, modalEditDescriptionInput],
+    settings
+  );
 });
 
 // Adding event listener to the profile post button .
 profilePostButton.addEventListener("click", (evt) => {
   evt.preventDefault();
   openModal(modalPost);
-  // resetting the modal error message
-  resetValidation(modalPost, [modalPostCardImg, modalPostCardTitle]);
+  disableButton(modalButtonPost, settings);
 });
 
 // Adding event listener to the modal edit save button .
@@ -87,7 +91,7 @@ modalFormEdit.addEventListener("submit", (evt) => {
   profileTitle.textContent = modalEditNameInput.value;
   profileDescription.textContent = modalEditDescriptionInput.value;
   closeModal(modalEdit);
-  const modalButtonEdit = modalEdit.querySelector(".modal__submit-btn");
+
   disableButton(modalButtonEdit, settings);
 });
 
@@ -104,7 +108,6 @@ modalFormPost.addEventListener("submit", (evt) => {
   renderCard(cardItem, (method = "prepend"));
   closeModal(modalPost);
   evt.target.reset();
-  const modalButtonPost = modalPost.querySelector(".modal__submit-btn");
   disableButton(modalButtonPost, settings);
 });
 
