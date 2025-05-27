@@ -1,0 +1,28 @@
+.cards__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 413px);
+  grid-template-rows: auto;
+  gap: 40px 20px;
+  padding: 20px 0 40px;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(33, 33, 33, 0.4);
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin: 0;
+  width: 100%;
+}
+
+.cards {
+  width: 100%;
+}
+
+@media (min-width: 288px) and (max-width: 413px) {
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 288px);
+    gap: 20px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+  }
+}
