@@ -34,28 +34,38 @@ import Api from "../scripts/utils/api.js";
 // ];
 
 //instansiating Api class
-const api = new Api(
-{baseUrl: "https://around-api.en.tripleten-services.com/v1", headers: {
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
     authorization: "e534a931-9271-41e1-94bf-2b08fdc46a4e",
-    "Content-Type": "application/json"
-  }}
-);
+    "Content-Type": "application/json",
+  },
+});
 
-api.getAppInfo()
-  .then(([cards]) => {
-    console.log(cards);
-      // a function that loops an array of objects and appends cards to our HTML.
+api
+  .getAppInfo()
+  .then(([cards, userInfo]) => {
+    console.log(userInfo);
+    // a function that loops an array of objects and appends cards to our HTML.
     cards.forEach((card) => {
       renderCard(card, "append");
     });
-    })
-    .catch ((err) => {
-      console.error(err);
-    });
 
+    // Adding event listener to the modal edit save button .
+modalFormEdit.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  // profileTitle.textContent = modalEditNameInput.value;
+   profileTitle.textContent = userInfo.name;
+  // profileDescription.textContent = modalEditDescriptionInput.value;
+  profileDescription.textContent = userInfo.about;
+  closeModal(modalEdit);
 
-
-
+  disableButton(modalButtonEdit, settings);
+});
+})
+.catch((err) => {
+    console.error(err);
+  });
 
 // selecting required elements from profile section for edit and post buttons. Besides for title and description.
 const profileSection = document.querySelector(".profile");
@@ -113,15 +123,7 @@ profilePostButton.addEventListener("click", (evt) => {
   disableButton(modalButtonPost, settings);
 });
 
-// Adding event listener to the modal edit save button .
-modalFormEdit.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  profileTitle.textContent = modalEditNameInput.value;
-  profileDescription.textContent = modalEditDescriptionInput.value;
-  closeModal(modalEdit);
 
-  disableButton(modalButtonEdit, settings);
-});
 
 // Adding event listener to the modal-post save button .
 modalFormPost.addEventListener("submit", (evt) => {
@@ -201,8 +203,6 @@ function renderCard(data, method = "prepend") {
   // Add the card into the section using the method
   cardsContainer[method](cardElement);
 }
-
-
 
 // To close a pop up modal by clicking outside the modal container
 const modalOverLays = document.querySelectorAll(".modal");
