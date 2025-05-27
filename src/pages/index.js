@@ -1,3 +1,5 @@
+import { enableValidation, settings } from "../scripts/validation";
+import "./index.css";
 const initialCards = [
   {
     name: "Golden Gate Bridge",
@@ -189,3 +191,5 @@ modalOverLays.forEach((modalOverLay) => {
     }
   });
 });
+
+enableValidation(settings);
