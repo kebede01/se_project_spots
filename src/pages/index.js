@@ -178,7 +178,7 @@ function renderCard(data, method = "prepend") {
 
 // a function that loops an array of objects and appends cards to our HTML.
 initialCards.forEach((data) => {
-  renderCard(data, (method = "append"));
+  renderCard(data, "append");
 });
 
 // To close a pop up modal by clicking outside the modal container

@@ -25,7 +25,7 @@
         <section class="profile">
           <img
             class="profile__avatar"
-            src="<%= require('.images/avatar.jpg')%>"
+            src="<%= require('./images/avatar.jpg')%>"
             alt="Bessie's photo"
           />
           <div class="profile__content">
@@ -37,7 +37,7 @@
             <button type="button" class="profile__button-edit">
               <img
                 class="profile__button-svg"
-                src="<%= require('.images/edit-icon.svg')%>"
+                src="<%= require('./images/edit-icon.svg')%>"
                 alt="edit icon"
               />
               Edit profile
@@ -46,7 +46,7 @@
           <button type="button" class="profile__button-post">
             <img
               class="profile__button-jpg"
-              src="<%= require('.images/plus-icon.svg')%>"
+              src="<%= require('./images/plus-icon.svg')%>"
               alt="add symbol"
             />
             New Post
@@ -57,7 +57,7 @@
             <template id="card-template">
               <li class="card">
                 <button class="card__delete-btn"></button>
-                <img class="card__image"  alt="" />
+                <img src="" class="card__image"  alt="" />
                 <div class="card__footer">
                   <h2 class="card__title"></h2>
                   <button type="button" class="card__like-button"></button>
@@ -167,7 +167,7 @@
               alt="modal close image"
             />
           </button>
-          <img  alt="" class="modal__image" />
+          <img src="" alt="" class="modal__image" />
           <p class="modal__caption"></p>
         </div>
       </div>
