@@ -23,11 +23,17 @@
       </header>
       <main class="content page__profile">
         <section class="profile">
-          <img
+          <div class="profile__avatar-container">
+  <button class="profile__avatar-btn">
+<img class="profile__pencil-icon"  src ="<%= require('./images/pencil-light.svg')%>" alt="pencil-icon" />
+          </button>
+ <img
             class="profile__avatar"
             src="<%= require('./images/avatar.jpg')%>"
             alt="Bessie's photo"
           />
+          </div>
+
           <div class="profile__content">
             <div>
               <h1 class="profile__title">Lorem Ipsum</h1>
@@ -173,6 +179,26 @@
       </div>
     </div>
 
+
+        <div class="modal__container">
+          <button type="button" class="modal__close-btn">
+            <img
+              class="modal__close-img"
+              src="<%= require('./images/close-img.svg')%>"
+              alt="modal close image"
+            />
+          </button>
+          <h3 class="modal__title">New post</h3>
+          <form name="post__profile" class="modal__form" novalidate>
+
+
+
+
+            <button type="submit" class="modal__submit-btn">Save</button>
+            <button type="submit" class="modal__submit-btn">Cancel</button>
+          </form>
+        </div>
+      </div>
 
   </body>
 </html>
