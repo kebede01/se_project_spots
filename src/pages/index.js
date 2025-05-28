@@ -2,42 +2,42 @@ import { enableValidation, settings } from "../scripts/validation";
 import "./index.css";
 import Api from "../scripts/utils/api.js";
 
-// const initialCards = [
-//   {
-//     name: "Golden Gate Bridge",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-//   },
-//   {
-//     name: "Val Thorens",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-//   {
-//     name: "Restaurant terrace",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-//   },
-//   {
-//     name: "An outdoor cafe",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-//   },
-//   {
-//     name: "A very long bridge, over the forest and through the trees",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-//   },
-//   {
-//     name: "Tunnel with morning light",
-//     link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-//   },
-//   {
-//     name: "Mountain house",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-//   },
-// ];
+const initialCards = [
+  {
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
+  {
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+  {
+    name: "Restaurant terrace",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+  },
+  {
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+  },
+  {
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+  },
+  {
+    name: "Tunnel with morning light",
+    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+  },
+  {
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+  },
+];
 
 //instansiating Api class
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "e534a931-9271-41e1-94bf-2b08fdc46a4e",
+    authorization: "ebe2356b-d4e6-47c7-bd7d-14d766d1d651",
     "Content-Type": "application/json",
   },
 });
@@ -106,6 +106,10 @@ const modalButtonAvatar = modalAvatarForm.querySelector(".modal__submit-btn");
 const modalAvatarInput = modalAvatarForm.querySelector(".modal__input");
 //Delete card modal
 const deleteCardModal = document.querySelector("#delete-modal");
+const deleteModalForm = deleteCardModal.querySelector("#delete__avatar-form");
+let selectedCard;
+let selectedCardId;
+
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -201,15 +205,27 @@ function getCardElement(data) {
   cardImage.setAttribute("src", `${data.link}`);
   cardImage.setAttribute("alt", `${data.name}`);
   cardTitle.textContent = `${data.name}`;
-  cardLikeButton.addEventListener("click", (evt) => {
-    evt.preventDefault();
-    cardLikeButton.classList.toggle("card__like-button_liked");
+  //to avoid loosing the like state after refresh
+  if (data.isLiked) { cardLikeButton.classList.add("card__like-button_liked"); }
+  cardLikeButton.addEventListener("click", (evt) =>
+  //how to get the like button reappear after refresh??
+  {
+    const isLiked = evt.target.classList.contains("card__like-button_liked");
+   api.handleLike({ selectedCardId: data._id, isLiked: data.isLiked })
+      .then((data) => {
+    evt.target.classList.toggle("card__like-button_liked");
+      })
+      .catch((err) => console.error(err));
+
+
   });
-  cardDeleteButton.addEventListener("click", () => {
+  cardDeleteButton.addEventListener("click", (evt) => {
     // cardDeleteButton.closest(".card").remove();
-    //deleteCardModal handling
+    // selectedCard = card;
+    selectedCardId = data._id;
     openModal(deleteCardModal);
-    card.remove();
+
+    // card.remove();
   });
   cardImage.addEventListener("click", () => {
     modalPreviewCardImage.src = data.link;
@@ -235,22 +251,32 @@ profileAvatarBtn.addEventListener("click", () => {
 });
 
 // Adding submit listener to the avatar modal form .
+deleteModalForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+
+  api
+    .deleteCard({ selectedCardId })
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteCardModal);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 modalAvatarForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   // console.log(modalAvatarInput.value);
   //edit avatar using api AM GETTING ERROR HERE!
-  api
-    .editAvatarInfo({ avatar: modalAvatarInput.value })
-    .then((data) => {
-      console.log(data);
-      avatar.setAttribute("src", `${data.avatar}`);
-      // evt.target.reset();
-
-    });
+  api.editAvatarInfo({ avatar: modalAvatarInput.value }).then((data) => {
+    console.log(data);
+    avatar.setAttribute("src", `${data.avatar}`);
+    // evt.target.reset();
+  });
   evt.target.reset();
   //after resetting IT IS NOT DISABLING THE BUTTON?
-    closeModal(modalAvatar);
-    disableButton(modalButtonAvatar, settings);
+  closeModal(modalAvatar);
+  disableButton(modalButtonAvatar, settings);
 });
 
 // To close a pop up modal by clicking outside the modal container
