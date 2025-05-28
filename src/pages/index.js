@@ -52,20 +52,17 @@ api
       renderCard(card, "append");
     });
     //how should i handle userinfo here?
+    const avatar = document.querySelector(".profile__avatar");
     profileTitle.textContent = userInfo.name;
-     profileDescription.textContent = userInfo.about;
+    profileDescription.textContent = userInfo.about;
     //set the source of the avatar
-     const avatar = document.querySelector(".profile__avatar");
+    //  const avatar = document.querySelector(".profile__avatar");
     avatar.setAttribute("src", `${userInfo.avatar}`);
     //set the text content of both the text elements
   })
   .catch((err) => {
     console.error(err);
   });
-
-
-
-
 
 // selecting required elements from profile section for edit and post buttons. Besides for title and description.
 const profileSection = document.querySelector(".profile");
@@ -104,9 +101,10 @@ const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
 // 4. Avatar modal and its elements
 const modalAvatar = document.querySelector("#avatar-modal");
 const modalAvatarCloseButton = modalAvatar.querySelector(".modal__close-btn");
-const modalAvatarForm = modalAvatar.querySelector(".modal__form");
-const modalButtonAvatar = modalAvatar.querySelector(".modal__submit-btn");
-const modalAvatarInput = modalAvatar.querySelector(".avatar");
+const modalAvatarForm = modalAvatar.querySelector("#edit__avatar-form");
+
+const modalButtonAvatar = modalAvatarForm.querySelector(".modal__submit-btn");
+const modalAvatarInput = modalAvatarForm.querySelector(".modal__input");
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -128,8 +126,6 @@ profilePostButton.addEventListener("click", (evt) => {
   disableButton(modalButtonPost, settings);
 });
 
-
-
 // Adding event listener to the modal-post save button .
 modalFormPost.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -150,18 +146,21 @@ modalFormPost.addEventListener("submit", (evt) => {
 modalFormEdit.addEventListener("submit", (evt) => {
   evt.preventDefault();
   //edit user info using api
-  api.editUserInfo({ name: modalEditNameInput.value, about: modalEditDescriptionInput.value })
+  api
+    .editUserInfo({
+      name: modalEditNameInput.value,
+      about: modalEditDescriptionInput.value,
+    })
     .then((data) => {
-  profileTitle.textContent = data.name;
-  profileDescription.textContent = data.about;
-  closeModal(modalEdit);
+      profileTitle.textContent = data.name;
+      profileDescription.textContent = data.about;
+      closeModal(modalEdit);
 
-  disableButton(modalButtonEdit, settings);
+      disableButton(modalButtonEdit, settings);
     })
     .catch((err) => {
       console.error(err);
     });
-
 });
 
 // Add event listener to all close buttons
@@ -227,12 +226,28 @@ function renderCard(data, method = "prepend") {
   cardsContainer[method](cardElement);
 }
 
-// Adding event listener to the avatar button .
-
-profileAvatarBtn.addEventListener("click", (evt) => {
-  evt.preventDefault();
+// Adding event listener to the profile avatar pencil-icon button .
+profileAvatarBtn.addEventListener("click", () => {
   openModal(modalAvatar);
-  disableButton(modalButtonPost, settings);
+});
+
+// Adding submit listener to the avatar modal form .
+modalAvatarForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  // console.log(modalAvatarInput.value);
+  //edit avatar using api AM GETTING ERROR HERE!
+  api
+    .editAvatarInfo({ avatar: modalAvatarInput.value })
+    .then((data) => {
+      console.log(data);
+      avatar.setAttribute("src", `${data.avatar}`);
+      // evt.target.reset();
+
+    });
+  evt.target.reset();
+  //after resetting IT IS NOT DISABLING THE BUTTON?
+    closeModal(modalAvatar);
+    disableButton(modalButtonAvatar, settings);
 });
 
 // To close a pop up modal by clicking outside the modal container
@@ -247,7 +262,3 @@ modalOverLays.forEach((modalOverLay) => {
 });
 
 enableValidation(settings);
-
-
-
-

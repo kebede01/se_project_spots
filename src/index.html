@@ -11,7 +11,6 @@
       content="spots, profile, edit, post, avatar, captions, images, logo,  "
     />
 
-
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <title>Spots</title>
   </head>
@@ -19,19 +18,27 @@
   <body>
     <div class="page">
       <header class="header">
-        <img class="header__logo"  src ="<%= require('./images/logo.svg')%>" alt="spots logo" />
+        <img
+          class="header__logo"
+          src="<%= require('./images/logo.svg')%>"
+          alt="spots logo"
+        />
       </header>
       <main class="content page__profile">
         <section class="profile">
           <div class="profile__avatar-container">
-  <button class="profile__avatar-btn">
-<img class="profile__pencil-icon"  src ="<%= require('./images/pencil-light.svg')%>" alt="pencil-icon" />
-          </button>
- <img
-            class="profile__avatar"
-            src="<%= require('./images/avatar.jpg')%>"
-            alt="Bessie's photo"
-          />
+            <button class="profile__avatar-btn">
+              <img
+                class="profile__pencil-icon"
+                src="<%= require('./images/pencil-light.svg')%>"
+                alt="pencil-icon"
+              />
+            </button>
+            <img
+              class="profile__avatar"
+              src="<%= require('./images/avatar.jpg')%>"
+              alt="Bessie's photo"
+            />
           </div>
 
           <div class="profile__content">
@@ -63,7 +70,7 @@
             <template id="card-template">
               <li class="card">
                 <button class="card__delete-btn"></button>
-                <img src="" class="card__image"  alt="" />
+                <img src="" class="card__image" alt="" />
                 <div class="card__footer">
                   <h2 class="card__title"></h2>
                   <button type="button" class="card__like-button"></button>
@@ -179,42 +186,34 @@
       </div>
     </div>
 
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn">
+          <img
+            class="modal__close-img"
+            src="<%= require('./images/close-img.svg')%>"
+            alt="modal close image"
+          />
+        </button>
+        <h3 class="modal__title">Edit profile avatar</h3>
 
-
-<div class="modal" id="avatar-modal">
-  <div class="modal__container">
-  <button type="button" class="modal__close-btn">
-            <img
-              class="modal__close-img"
-              src="<%= require('./images/close-img.svg')%>"
-              alt="modal close image"
+        <form class="modal__form" id="edit__avatar-form" novalidate>
+          <label for="profile__avatar-input" class="modal__label">
+            Profile picture
+            <input
+              id="profile__avatar-input"
+              type="url"
+              class="modal__input"
+              placeholder="Place the link to an image"
+              name="avatar"
+              required
             />
-          </button>
-          <h3 class="modal__title">Edit profile avatar</h3>
+            <span id="profile__avatar-input-error" class="modal__error"></span>
+          </label>
 
-          <form name="post__profile" class="modal__form" id="edit__avatar-form" novalidate>
-
- <label for="profile__avatar-input" class="modal__label">
-             Profile picture
-              <input
-                id="profile__avatar-input"
-                type="url"
-                class="modal__input"
-                placeholder="Place the link to an image"
-                name="avatar"
-                required
-              />
-              <span id="profile__avatar-input-error" class="modal__error"></span>
-            </label>
-
-
-            <button type="submit" class="modal__submit-btn">Save</button>
-
-          </form>
-        </div>
-</div>
-
-
-
+          <button type="submit" class="modal__submit-btn">Save</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
