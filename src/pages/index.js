@@ -102,9 +102,10 @@ const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
 const modalAvatar = document.querySelector("#avatar-modal");
 const modalAvatarCloseButton = modalAvatar.querySelector(".modal__close-btn");
 const modalAvatarForm = modalAvatar.querySelector("#edit__avatar-form");
-
 const modalButtonAvatar = modalAvatarForm.querySelector(".modal__submit-btn");
 const modalAvatarInput = modalAvatarForm.querySelector(".modal__input");
+//Delete card modal
+const deleteCardModal = document.querySelector("#delete-modal");
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -206,6 +207,8 @@ function getCardElement(data) {
   });
   cardDeleteButton.addEventListener("click", () => {
     // cardDeleteButton.closest(".card").remove();
+    //deleteCardModal handling
+    openModal(deleteCardModal);
     card.remove();
   });
   cardImage.addEventListener("click", () => {
