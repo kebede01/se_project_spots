@@ -45,27 +45,42 @@ const api = new Api({
 api
   .getAppInfo()
   .then(([cards, userInfo]) => {
+    console.log(cards);
     console.log(userInfo);
     // a function that loops an array of objects and appends cards to our HTML.
     cards.forEach((card) => {
       renderCard(card, "append");
     });
+    //how should i handle userinfo here?
+    profileTitle.textContent = userInfo.name;
+     profileDescription.textContent = userInfo.about;
+    //set the source of the avatar
+     const avatar = document.querySelector(".profile__avatar");
+    avatar.setAttribute("src", `${userInfo.avatar}`);
+    //set the text content of both the text elements
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
-    // Adding event listener to the modal edit save button .
+
+ // Adding event listener to the modal edit save button .
 modalFormEdit.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  // profileTitle.textContent = modalEditNameInput.value;
-   profileTitle.textContent = userInfo.name;
-  // profileDescription.textContent = modalEditDescriptionInput.value;
-  profileDescription.textContent = userInfo.about;
+
+  //editing user info
+api.editUserInfo({ name: "test", about: "test" })
+  .then((res) => {
+    console.log(res);
+  })
+ .catch((err) => {
+    console.error(err);
+ });
   closeModal(modalEdit);
 
   disableButton(modalButtonEdit, settings);
 });
-})
-.catch((err) => {
-    console.error(err);
-  });
+
 
 // selecting required elements from profile section for edit and post buttons. Besides for title and description.
 const profileSection = document.querySelector(".profile");
