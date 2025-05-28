@@ -45,8 +45,8 @@ const api = new Api({
 api
   .getAppInfo()
   .then(([cards, userInfo]) => {
-    console.log(cards);
-    console.log(userInfo);
+    // console.log(cards);
+    // console.log(userInfo);
     // a function that loops an array of objects and appends cards to our HTML.
     cards.forEach((card) => {
       renderCard(card, "append");
@@ -64,22 +64,7 @@ api
   });
 
 
- // Adding event listener to the modal edit save button .
-modalFormEdit.addEventListener("submit", (evt) => {
-  evt.preventDefault();
 
-  //editing user info
-api.editUserInfo({ name: "test", about: "test" })
-  .then((res) => {
-    console.log(res);
-  })
- .catch((err) => {
-    console.error(err);
- });
-  closeModal(modalEdit);
-
-  disableButton(modalButtonEdit, settings);
-});
 
 
 // selecting required elements from profile section for edit and post buttons. Besides for title and description.
@@ -124,11 +109,11 @@ profileEditButton.addEventListener("click", (evt) => {
   modalEditNameInput.value = profileTitle.textContent;
   modalEditDescriptionInput.value = profileDescription.textContent;
   // resetting the modal error message requires an array
-  resetValidation(
-    modalFormEdit,
-    [modalEditNameInput, modalEditDescriptionInput],
-    settings
-  );
+  // resetValidation(
+  //   modalFormEdit,
+  //   [modalEditNameInput, modalEditDescriptionInput],
+  //   settings
+  // );
 });
 
 // Adding event listener to the profile post button .
@@ -154,6 +139,24 @@ modalFormPost.addEventListener("submit", (evt) => {
   closeModal(modalPost);
   evt.target.reset();
   disableButton(modalButtonPost, settings);
+});
+
+// Adding event listener to the modal edit save button .
+modalFormEdit.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  //edit user info using api
+  api.editUserInfo({ name: modalEditNameInput.value, about: modalEditDescriptionInput.value })
+    .then((data) => {
+  profileTitle.textContent = data.name;
+  profileDescription.textContent = data.about;
+  closeModal(modalEdit);
+
+  disableButton(modalButtonEdit, settings);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
 });
 
 // Add event listener to all close buttons
@@ -231,3 +234,7 @@ modalOverLays.forEach((modalOverLay) => {
 });
 
 enableValidation(settings);
+
+
+
+
