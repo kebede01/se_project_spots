@@ -180,25 +180,41 @@
     </div>
 
 
-        <div class="modal__container">
-          <button type="button" class="modal__close-btn">
+
+<div class="modal" id="avatar-modal">
+  <div class="modal__container">
+  <button type="button" class="modal__close-btn">
             <img
               class="modal__close-img"
               src="<%= require('./images/close-img.svg')%>"
               alt="modal close image"
             />
           </button>
-          <h3 class="modal__title">New post</h3>
-          <form name="post__profile" class="modal__form" novalidate>
+          <h3 class="modal__title">Edit profile avatar</h3>
 
+          <form name="post__profile" class="modal__form" id="edit__avatar-form" novalidate>
 
+ <label for="profile__avatar-input" class="modal__label">
+             Profile picture
+              <input
+                id="profile__avatar-input"
+                type="url"
+                class="modal__input"
+                placeholder="Place the link to an image"
+                name="avatar"
+                required
+              />
+              <span id="profile__avatar-input-error" class="modal__error"></span>
+            </label>
 
 
             <button type="submit" class="modal__submit-btn">Save</button>
-            <button type="submit" class="modal__submit-btn">Cancel</button>
+
           </form>
         </div>
-      </div>
+</div>
+
+
 
   </body>
 </html>

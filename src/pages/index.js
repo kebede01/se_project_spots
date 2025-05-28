@@ -75,7 +75,7 @@ const profileTitle = profileSection.querySelector(".profile__title");
 const profileDescription = profileSection.querySelector(
   ".profile__description"
 );
-
+const profileAvatarBtn = document.querySelector(".profile__avatar-btn");
 // selecting the template and the container to keep our cloned elements.
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsContainer = document.querySelector(".cards__list");
@@ -101,7 +101,12 @@ const modalPreview = document.querySelector("#preview-modal");
 const modalPreviewCloseButton = modalPreview.querySelector(".modal__close-btn");
 const modalPreviewCardImage = modalPreview.querySelector(".modal__image");
 const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
-
+// 4. Avatar modal and its elements
+const modalAvatar = document.querySelector("#avatar-modal");
+const modalAvatarCloseButton = modalAvatar.querySelector(".modal__close-btn");
+const modalAvatarForm = modalAvatar.querySelector(".modal__form");
+const modalButtonAvatar = modalAvatar.querySelector(".modal__submit-btn");
+const modalAvatarInput = modalAvatar.querySelector(".avatar");
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -221,6 +226,14 @@ function renderCard(data, method = "prepend") {
   // Add the card into the section using the method
   cardsContainer[method](cardElement);
 }
+
+// Adding event listener to the avatar button .
+
+profileAvatarBtn.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  openModal(modalAvatar);
+  disableButton(modalButtonPost, settings);
+});
 
 // To close a pop up modal by clicking outside the modal container
 const modalOverLays = document.querySelectorAll(".modal");
