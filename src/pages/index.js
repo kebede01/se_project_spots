@@ -1,7 +1,7 @@
 import { enableValidation, settings } from "../scripts/validation";
 import "./index.css";
 import Api from "../scripts/utils/api.js";
-
+import { setButtonText } from "../scripts/utils/helpers.js";
 const initialCards = [
   {
     name: "Golden Gate Bridge",
@@ -133,6 +133,8 @@ profilePostButton.addEventListener("click", (evt) => {
 
 // Adding event listener to the modal-post save button .
 modalFormPost.addEventListener("submit", (evt) => {
+   const button = evt.submitter;
+  setButtonText(button, true, "Saving...", "Save");
   evt.preventDefault();
   const cardImgUrl = modalPostCardImg.value;
   const cardTitle = modalPostCardTitle.value;
@@ -145,10 +147,14 @@ modalFormPost.addEventListener("submit", (evt) => {
   closeModal(modalPost);
   evt.target.reset();
   disableButton(modalButtonPost, settings);
+  setButtonText(button, false, "Saving...", "Save");
 });
 
 // Adding event listener to the modal edit save button .
 modalFormEdit.addEventListener("submit", (evt) => {
+  //TODO change text to saving...
+  const button = evt.submitter;
+  setButtonText(button, true, "Saving...", "Save");
   evt.preventDefault();
   //edit user info using api
   api
@@ -165,6 +171,10 @@ modalFormEdit.addEventListener("submit", (evt) => {
     })
     .catch((err) => {
       console.error(err);
+    })
+    //TODO change text to save AND FOR ALL OTHER BUTTONS IN THE PROJECT
+    .finally(() => {
+       setButtonText(button, false, "Saving...", "Save");
     });
 });
 
@@ -206,19 +216,20 @@ function getCardElement(data) {
   cardImage.setAttribute("alt", `${data.name}`);
   cardTitle.textContent = `${data.name}`;
   //to avoid loosing the like state after refresh
-  if (data.isLiked) { cardLikeButton.classList.add("card__like-button_liked"); }
+  if (data.isLiked) {
+    cardLikeButton.classList.add("card__like-button_liked");
+  }
   cardLikeButton.addEventListener("click", (evt) =>
-  //how to get the like button reappear after refresh??
-  {
-    const isLiked = evt.target.classList.contains("card__like-button_liked");
-   api.handleLike({ selectedCardId: data._id, isLiked: data.isLiked })
-      .then((data) => {
-    evt.target.classList.toggle("card__like-button_liked");
-      })
-      .catch((err) => console.error(err));
-
-
-  });
+    {
+      const isLiked = evt.target.classList.contains("card__like-button_liked");
+      api
+        .handleLike({ selectedCardId: data._id, isLiked: data.isLiked })
+        .then((data) => {
+          evt.target.classList.toggle("card__like-button_liked");
+        })
+        .catch((err) => console.error(err));
+    }
+  );
   cardDeleteButton.addEventListener("click", (evt) => {
     // cardDeleteButton.closest(".card").remove();
     // selectedCard = card;
@@ -233,8 +244,7 @@ function getCardElement(data) {
     modalPreviewCaption.textContent = data.name;
     openModal(modalPreview);
   });
-
-  return card;
+return card;
 }
 
 // The function accepts a card object and a method of adding to the section
@@ -253,7 +263,8 @@ profileAvatarBtn.addEventListener("click", () => {
 // Adding submit listener to the avatar modal form .
 deleteModalForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-
+  const button = evt.submitter;
+  setButtonText(button, true, "Deleting...", "Delete");
   api
     .deleteCard({ selectedCardId })
     .then(() => {
@@ -262,10 +273,15 @@ deleteModalForm.addEventListener("submit", (evt) => {
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(button, false, "Deleting", "Delete");
     });
 });
 modalAvatarForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
+   const button = evt.submitter;
+  setButtonText(button, true, "Saving...", "Save");
   // console.log(modalAvatarInput.value);
   //edit avatar using api AM GETTING ERROR HERE!
   api.editAvatarInfo({ avatar: modalAvatarInput.value }).then((data) => {
@@ -277,6 +293,7 @@ modalAvatarForm.addEventListener("submit", (evt) => {
   //after resetting IT IS NOT DISABLING THE BUTTON?
   closeModal(modalAvatar);
   disableButton(modalButtonAvatar, settings);
+   setButtonText(button, false, "Saveing...", "Save");
 });
 
 // To close a pop up modal by clicking outside the modal container
