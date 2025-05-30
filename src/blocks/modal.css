@@ -40,7 +40,7 @@
   overflow: visible;
 }
 .modal__close-btn {
-  background-color: white;
+  background-color: transparent;
   border: none;
   width: 40px;
   height: 40px;
@@ -50,6 +50,7 @@
   right: 15px;
   opacity: 0.4;
   transition: 1s;
+  background-image: url("../images/close-img.svg");
 }
 
 .modal__close-btn:hover {
@@ -222,9 +223,11 @@
 .modal__close-btn_type-delete {
   top: -52px;
   right: 0px;
-  opacity: 0.8;
+  opacity: 1;
   background-color: transparent;
+  background-image: url("../images/Close-Icon-delete.svg");
 }
+
 @media (max-width: 320px) {
   .modal__caption {
     font-size: 16px;
@@ -252,9 +255,8 @@
   }
 
   .modal__close-btn_type-delete {
-    top: 0px;
-    right: -32px;
-    opacity: 0.8;
+    top: -6px;
+    right: -52px;
   }
   .modal__close-btn_type-preview {
     top: 0;
