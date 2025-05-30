@@ -14,11 +14,11 @@
   border-radius: 8px;
 }
 
-.profile__avatar-container{
+.profile__avatar-container {
   position: relative;
 }
 
-.profile__avatar-btn{
+.profile__avatar-btn {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -31,12 +31,15 @@
   justify-content: center;
   gap: 8px;
   visibility: visible;
+  opacity: 0.8;
+  background-color: transparent;
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 
-.profile__avatar-btn::after{
+.profile__avatar-btn::after {
   content: "";
 }
-
 
 .profile__content {
   display: flex;
@@ -48,16 +51,14 @@
   margin: 0;
 }
 
-.profile__avatar-container:hover .profile__avatar-btn
-{
-   visibility: visible;
+.profile__avatar-container:hover .profile__avatar-btn {
+  visibility: visible;
 }
 .profile__title {
   text-align: center;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 500;
-
   font-size: 20px;
   color: #212121;
   line-height: 1;
@@ -201,11 +202,16 @@
     align-self: flex-end;
     margin-left: auto;
   }
-  .profile__avatar-btn{
-    visibility:hidden;
+
+  .profile__avatar-btn {
+    visibility: hidden;
   }
 
-  .profile__avatar-btn::after{
-  content: "Edit avatar";
-}
+  .profile__avatar-btn::after {
+    content: "Edit avatar";
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 500;
+  }
 }

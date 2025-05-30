@@ -2,36 +2,6 @@ import { enableValidation, settings } from "../scripts/validation";
 import "./index.css";
 import Api from "../scripts/utils/api.js";
 import { setButtonText } from "../scripts/utils/helpers.js";
-const initialCards = [
-  {
-    name: "Golden Gate Bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-];
 
 //instansiating Api class
 const api = new Api({
@@ -45,20 +15,14 @@ const api = new Api({
 api
   .getAppInfo()
   .then(([cards, userInfo]) => {
-    // console.log(cards);
-    // console.log(userInfo);
     // a function that loops an array of objects and appends cards to our HTML.
     cards.forEach((card) => {
       renderCard(card, "append");
     });
-    //how should i handle userinfo here?
-    const avatar = document.querySelector(".profile__avatar");
+    //handling user info
     profileTitle.textContent = userInfo.name;
     profileDescription.textContent = userInfo.about;
-    //set the source of the avatar
-    //  const avatar = document.querySelector(".profile__avatar");
     avatar.setAttribute("src", `${userInfo.avatar}`);
-    //set the text content of both the text elements
   })
   .catch((err) => {
     console.error(err);
@@ -73,6 +37,7 @@ const profileDescription = profileSection.querySelector(
   ".profile__description"
 );
 const profileAvatarBtn = document.querySelector(".profile__avatar-btn");
+const avatar = document.querySelector(".profile__avatar");
 // selecting the template and the container to keep our cloned elements.
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsContainer = document.querySelector(".cards__list");
@@ -80,35 +45,35 @@ const cardsContainer = document.querySelector(".cards__list");
 // selecting required elements from the two popping up modal sections.
 // 1. modal Edit elements
 const modalEdit = document.querySelector("#edit-profile-modal");
-const modalEditCloseButton = modalEdit.querySelector(".modal__close-btn");
 const modalFormEdit = modalEdit.querySelector(".modal__form");
 const modalEditNameInput = modalEdit.querySelector("#name");
 const modalEditDescriptionInput = modalEdit.querySelector("#description");
-const modalButtonEdit = modalEdit.querySelector(".modal__submit-btn");
-
 // 2. modal post elements
 const modalPost = document.querySelector("#new-post-modal");
-const modalPostCloseButton = modalPost.querySelector(".modal__close-btn");
 const modalFormPost = modalPost.querySelector(".modal__form");
 const modalPostCardImg = modalPost.querySelector("#card-img-input");
 const modalPostCardTitle = modalPost.querySelector("#card-img-title");
 const modalButtonPost = modalPost.querySelector(".modal__submit-btn");
 // 3. modal preview elements that would be visible on image clicking (after adding event listener).
 const modalPreview = document.querySelector("#preview-modal");
-const modalPreviewCloseButton = modalPreview.querySelector(".modal__close-btn");
 const modalPreviewCardImage = modalPreview.querySelector(".modal__image");
 const modalPreviewCaption = modalPreview.querySelector(".modal__caption");
 // 4. Avatar modal and its elements
 const modalAvatar = document.querySelector("#avatar-modal");
-const modalAvatarCloseButton = modalAvatar.querySelector(".modal__close-btn");
 const modalAvatarForm = modalAvatar.querySelector("#edit__avatar-form");
-const modalButtonAvatar = modalAvatarForm.querySelector(".modal__submit-btn");
 const modalAvatarInput = modalAvatarForm.querySelector(".modal__input");
-//Delete card modal
 const deleteCardModal = document.querySelector("#delete-modal");
-const deleteModalForm = deleteCardModal.querySelector("#delete__avatar-form");
+const deleteModalCardForm = deleteCardModal.querySelector("#delete__card-form");
+const cancelButton = deleteCardModal.querySelector(
+  ".modal__submit-btn_type-cancel"
+);
+
 let selectedCard;
 let selectedCardId;
+//Event listener for the popup card delete modal
+cancelButton.addEventListener("click", (evt) => {
+  closeModal(deleteCardModal);
+});
 
 // Adding event listener to the profile edit button .
 profileEditButton.addEventListener("click", (evt) => {
@@ -133,26 +98,25 @@ profilePostButton.addEventListener("click", (evt) => {
 
 // Adding event listener to the modal-post save button .
 modalFormPost.addEventListener("submit", (evt) => {
-   const button = evt.submitter;
+  const button = evt.submitter;
   setButtonText(button, true, "Saving...", "Save");
   evt.preventDefault();
-  const cardImgUrl = modalPostCardImg.value;
-  const cardTitle = modalPostCardTitle.value;
-  const cardItem = {
-    name: cardTitle,
-    link: cardImgUrl,
-  };
-
-  renderCard(cardItem, (method = "prepend"));
-  closeModal(modalPost);
-  evt.target.reset();
-  disableButton(modalButtonPost, settings);
-  setButtonText(button, false, "Saving...", "Save");
+  api
+    .postCards({ link: modalPostCardImg.value, name: modalPostCardTitle.value })
+    .then((data) => {
+      console.log(data);
+      renderCard(data);
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      closeModal(modalPost);
+      evt.target.reset();
+      setButtonText(button, false, "Saving...", "Save");
+    });
 });
 
 // Adding event listener to the modal edit save button .
 modalFormEdit.addEventListener("submit", (evt) => {
-  //TODO change text to saving...
   const button = evt.submitter;
   setButtonText(button, true, "Saving...", "Save");
   evt.preventDefault();
@@ -166,15 +130,12 @@ modalFormEdit.addEventListener("submit", (evt) => {
       profileTitle.textContent = data.name;
       profileDescription.textContent = data.about;
       closeModal(modalEdit);
-
-      disableButton(modalButtonEdit, settings);
     })
     .catch((err) => {
       console.error(err);
     })
-    //TODO change text to save AND FOR ALL OTHER BUTTONS IN THE PROJECT
     .finally(() => {
-       setButtonText(button, false, "Saving...", "Save");
+      setButtonText(button, false, "Saving...", "Save");
     });
 });
 
@@ -205,7 +166,15 @@ function openModal(modal) {
   document.addEventListener("keydown", closeModalByEsc);
 }
 
+// card delete handler
+function handleDeleteCard(card, cardId) {
+  openModal(deleteCardModal);
+  selectedCard = card;
+  selectedCardId = cardId;
+}
+
 // function generating card from object literal "data" containing "name" and "link" key words.
+
 function getCardElement(data) {
   const card = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = card.querySelector(".card__image");
@@ -219,36 +188,50 @@ function getCardElement(data) {
   if (data.isLiked) {
     cardLikeButton.classList.add("card__like-button_liked");
   }
-  cardLikeButton.addEventListener("click", (evt) =>
-    {
-      const isLiked = evt.target.classList.contains("card__like-button_liked");
-      api
-        .handleLike({ selectedCardId: data._id, isLiked: data.isLiked })
-        .then((data) => {
-          evt.target.classList.toggle("card__like-button_liked");
-        })
-        .catch((err) => console.error(err));
-    }
-  );
-  cardDeleteButton.addEventListener("click", (evt) => {
-    // cardDeleteButton.closest(".card").remove();
-    // selectedCard = card;
-    selectedCardId = data._id;
-    openModal(deleteCardModal);
-
-    // card.remove();
+  cardLikeButton.addEventListener("click", (evt) => {
+    // const isLiked = evt.target.classList.contains("card__like-button_liked");
+    api
+      .handleLike({ CardId: data._id, isLiked: data.isLiked })
+      .then((data) => {
+        evt.target.classList.toggle("card__like-button_liked");
+      })
+      .catch((err) => console.error(err));
   });
+
+  cardDeleteButton.addEventListener("click", (evt) => {
+    handleDeleteCard(card, data._id);
+  });
+
   cardImage.addEventListener("click", () => {
     modalPreviewCardImage.src = data.link;
     modalPreviewCardImage.alt = data.name;
     modalPreviewCaption.textContent = data.name;
     openModal(modalPreview);
   });
-return card;
+  return card;
 }
 
-// The function accepts a card object and a method of adding to the section
-// The method is initially `prepend`, but you can pass `append`
+function handleDeleteSubmit(evt) {
+  const button = evt.submitter;
+  setButtonText(button, true, "Deleting...", "Delete");
+  api;
+  api
+    .deleteCard({ id: selectedCardId })
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteCardModal);
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      setButtonText(button, false, "Deleting", "Delete");
+    });
+}
+// Adding submit listener to the delete modal form on clicking delete button .
+deleteModalCardForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  handleDeleteSubmit(evt);
+});
+
 function renderCard(data, method = "prepend") {
   const cardElement = getCardElement(data);
   // Add the card into the section using the method
@@ -260,40 +243,21 @@ profileAvatarBtn.addEventListener("click", () => {
   openModal(modalAvatar);
 });
 
-// Adding submit listener to the avatar modal form .
-deleteModalForm.addEventListener("submit", (evt) => {
+modalAvatarForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const button = evt.submitter;
-  setButtonText(button, true, "Deleting...", "Delete");
+  setButtonText(button, true, "Saving...", "Save");
   api
-    .deleteCard({ selectedCardId })
-    .then(() => {
-      selectedCard.remove();
-      closeModal(deleteCardModal);
+    .editAvatarInfo({ avatar: modalAvatarInput.value })
+    .then((data) => {
+      avatar.setAttribute("src", `${data.avatar}`);
+      evt.target.reset();
     })
     .catch((err) => {
       console.error(err);
-    })
-    .finally(() => {
-      setButtonText(button, false, "Deleting", "Delete");
     });
-});
-modalAvatarForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-   const button = evt.submitter;
-  setButtonText(button, true, "Saving...", "Save");
-  // console.log(modalAvatarInput.value);
-  //edit avatar using api AM GETTING ERROR HERE!
-  api.editAvatarInfo({ avatar: modalAvatarInput.value }).then((data) => {
-    console.log(data);
-    avatar.setAttribute("src", `${data.avatar}`);
-    // evt.target.reset();
-  });
-  evt.target.reset();
-  //after resetting IT IS NOT DISABLING THE BUTTON?
   closeModal(modalAvatar);
-  disableButton(modalButtonAvatar, settings);
-   setButtonText(button, false, "Saveing...", "Save");
+  setButtonText(button, false, "Saving...", "Save");
 });
 
 // To close a pop up modal by clicking outside the modal container
