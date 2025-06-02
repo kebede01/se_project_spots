@@ -193,6 +193,7 @@
   top: -48px;
   right: 0;
   opacity: 1;
+  background-image: url("../images/Close-Icon-delete.svg");
 }
 
 .modal__close-btn_type-preview:hover {

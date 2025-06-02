@@ -47,12 +47,15 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.disabled = true;
 };
 // resetting validation messages when closing a modal
-const resetValidation = (formElement, inputList, config) => {
+export const resetValidation = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
   });
@@ -80,4 +83,3 @@ export const enableValidation = (config) => {
     setEventListeners(formElement, config);
   });
 };
- 

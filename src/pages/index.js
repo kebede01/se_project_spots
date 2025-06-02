@@ -1,4 +1,9 @@
-import { enableValidation, settings } from "../scripts/validation";
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+  disableButton,
+} from "../scripts/validation";
 import "./index.css";
 import Api from "../scripts/utils/api.js";
 import { setButtonText } from "../scripts/utils/helpers.js";
@@ -81,19 +86,13 @@ profileEditButton.addEventListener("click", (evt) => {
   openModal(modalEdit);
   modalEditNameInput.value = profileTitle.textContent;
   modalEditDescriptionInput.value = profileDescription.textContent;
-  // resetting the modal error message requires an array
-  // resetValidation(
-  //   modalFormEdit,
-  //   [modalEditNameInput, modalEditDescriptionInput],
-  //   settings
-  // );
+  resetValidation(modalFormEdit, settings);
 });
 
 // Adding event listener to the profile post button .
 profilePostButton.addEventListener("click", (evt) => {
   evt.preventDefault();
   openModal(modalPost);
-  disableButton(modalButtonPost, settings);
 });
 
 // Adding event listener to the modal-post save button .
@@ -106,20 +105,21 @@ modalFormPost.addEventListener("submit", (evt) => {
     .then((data) => {
       console.log(data);
       renderCard(data);
+      disableButton(button, settings);
+      closeModal(modalPost);
+      evt.target.reset();
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      closeModal(modalPost);
-      evt.target.reset();
-      setButtonText(button, false, "Saving...", "Save");
+      setButtonText(button, false, "Save");
     });
 });
 
 // Adding event listener to the modal edit save button .
 modalFormEdit.addEventListener("submit", (evt) => {
+  evt.preventDefault();
   const button = evt.submitter;
   setButtonText(button, true, "Saving...", "Save");
-  evt.preventDefault();
   //edit user info using api
   api
     .editUserInfo({
@@ -130,12 +130,14 @@ modalFormEdit.addEventListener("submit", (evt) => {
       profileTitle.textContent = data.name;
       profileDescription.textContent = data.about;
       closeModal(modalEdit);
+      disableButton(button, settings);
+      modalFormEdit.reset();
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(() => {
-      setButtonText(button, false, "Saving...", "Save");
+      setButtonText(button, false, "Save");
     });
 });
 
@@ -157,12 +159,10 @@ function closeModalByEsc(evt) {
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
-
   document.removeEventListener("keydown", closeModalByEsc);
 }
 function openModal(modal) {
   modal.classList.add("modal_opened");
-
   document.addEventListener("keydown", closeModalByEsc);
 }
 
@@ -189,7 +189,6 @@ function getCardElement(data) {
     cardLikeButton.classList.add("card__like-button_liked");
   }
   cardLikeButton.addEventListener("click", (evt) => {
-    // const isLiked = evt.target.classList.contains("card__like-button_liked");
     api
       .handleLike({ CardId: data._id, isLiked: data.isLiked })
       .then((data) => {
@@ -214,7 +213,7 @@ function getCardElement(data) {
 function handleDeleteSubmit(evt) {
   const button = evt.submitter;
   setButtonText(button, true, "Deleting...", "Delete");
-  api;
+
   api
     .deleteCard({ id: selectedCardId })
     .then(() => {
@@ -223,7 +222,7 @@ function handleDeleteSubmit(evt) {
     })
     .catch((err) => console.error(err))
     .finally(() => {
-      setButtonText(button, false, "Deleting", "Delete");
+      setButtonText(button, false, "Delete");
     });
 }
 // Adding submit listener to the delete modal form on clicking delete button .
@@ -252,12 +251,15 @@ modalAvatarForm.addEventListener("submit", (evt) => {
     .then((data) => {
       avatar.setAttribute("src", `${data.avatar}`);
       evt.target.reset();
+      disableButton(button, settings);
+      closeModal(modalAvatar);
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      setButtonText(button, false, "Save");
     });
-  closeModal(modalAvatar);
-  setButtonText(button, false, "Saving...", "Save");
 });
 
 // To close a pop up modal by clicking outside the modal container
