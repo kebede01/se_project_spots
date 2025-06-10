@@ -1,4 +1,4 @@
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
@@ -47,12 +47,15 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   }
 };
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.disabled = true;
 };
 // resetting validation messages when closing a modal
-const resetValidation = (formElement, inputList, config) => {
+export const resetValidation = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
   });
@@ -71,7 +74,7 @@ const setEventListeners = (formElement, config) => {
     });
   });
 };
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", function (evt) {
@@ -80,4 +83,3 @@ const enableValidation = (config) => {
     setEventListeners(formElement, config);
   });
 };
-enableValidation(settings);

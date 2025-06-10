@@ -1,6 +1,6 @@
 # project 3: Spots
 
-This is my first project using READ.ME and based on my tutors feedback, I will update my codes in the next post.
+This is my first project using READ.ME and based on my tutors feedback, I will update my codes in the next post.As 
 
 ## Project Description
 
@@ -32,3 +32,9 @@ This is my first project using READ.ME and based on my tutors feedback, I will u
 #### Here is the link to my project discourse video:
 
 [(https://drive.google.com/file/d/1og-sOvslkIPKyemjUTc29X4bBqjiXlF_/view?usp=sharing)]
+
+#### Here is the updated part in the project:
+Here things have taken a differnt twist for I used a server based application.
+So, all data are send and requested using an API.To enable API,I created a file 
+in utils folder (api.js).Now users can add their own images and update profile 
+info and avatar image.Moreover, they can delete images they don't like.
