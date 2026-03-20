@@ -1,0 +1,6 @@
+.DS_Store
+/images/demo
+nothing else.
+.DS_Store
+node_modules/
+dist/
