@@ -1,3 +1,4 @@
 {
-  "livePreview.defaultPreviewPath": "/se_project_spots/index.html"
+  "livePreview.defaultPreviewPath": "/se_project_spots/index.html",
+  "liveServer.settings.port": 5502
 }
